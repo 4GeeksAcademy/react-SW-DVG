@@ -1,3 +1,110 @@
-/* 
-    General Styles
-*/
+body {
+    background: black;
+}
+
+.footer {
+    color: white;
+}
+
+.card-footer {
+    background: white;
+}
+
+.card{
+    min-width: 400px;
+    margin: 20px;
+    
+}
+
+.card-group {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+    padding-bottom: 10px;
+    color: black;
+}
+
+.allCards {
+    padding-top: 30px;
+    margin: 0 75px;
+    padding-bottom: 10px;
+    color: rgb(247, 227, 40);
+    
+
+}
+
+.card-text {
+    text-transform: capitalize;
+}
+
+.logo {
+    width:125px;
+}
+
+.navbar {
+    padding: 0 75px;
+}
+
+.favorite {
+    background: white;
+    border: solid orange 1px;
+    border-radius: 5px;
+    color: orange;
+    float: right;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 100px;
+}
+
+.cardInfo {
+    display: flex;
+    margin: 20px 75px;
+    border: solid 2px rgb(247, 227, 40);
+    max-width: 800px;
+    text-transform: capitalize;
+}
+
+.descriptionInfo {
+    text-align: center;
+    padding: 30px 75px;
+    color:  white;
+
+
+}
+
+.characteristics {
+    padding-top: 50px;
+    text-align: left;
+}
+
+ul{
+    list-style: none;
+}
+
+h1 {
+    color: rgb(247, 227, 40);
+}
+
+.icon {
+    padding-left: 10px;
+}
+.icon:hover {
+    cursor: pointer;
+}
+
+.favs {
+    text-align: center;
+    justify-content: center;
+}
+
+.favNum {
+    padding: 0 5px;
+    background: orange;
+    color: black;
+    border-radius: 50%;
+    margin-left: 5px;
+}

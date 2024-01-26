@@ -1,6 +1,8 @@
 const getState = ({ getStore, getActions, setStore }) => {
+
 	return {
 		store: {
+			urlBase: "https://www.swapi.tech/api",
 			demo: [
 				{
 					title: "FIRST",
@@ -12,34 +14,92 @@ const getState = ({ getStore, getActions, setStore }) => {
 					background: "white",
 					initial: "white"
 				}
-			]
+			],
+			characters: [],
+			planets: [],
+			starships: [],
+			favorites: [],
 		},
 		actions: {
-			// Use getActions to call a function within a fuction
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
+
+			loadCharacters: async () => {
+				const store = getStore()
+				try {
+					let response = await fetch(`${store.urlBase}/people`);
+					let data = await response.json();
+
+					const fetchs = data.results.map((item) => fetch(item.url))
+					const respuestas = await Promise.all(fetchs);
+					const datas = await Promise.all(respuestas.map((item) => item.json()));
+
+					let characters = datas.map((item) => ({ uid: item.result.uid, ...item.result.properties }))
+
+					setStore({
+						characters: characters
+					})
+				} catch (error) {
+					console.log(error)
+				}
 			},
-			loadSomeData: () => {
-				/**
-					fetch().then().then(data => setStore({ "foo": data.bar }))
-				*/
+			loadPlanets: async () => {
+				const store = getStore()
+				try {
+					let response = await fetch(`${store.urlBase}/planets`);
+					let data = await response.json();
+
+					const fetchs = data.results.map((item) => fetch(item.url))
+					const respuestas = await Promise.all(fetchs);
+					const datas = await Promise.all(respuestas.map((item) => item.json()));
+
+					let planets = datas.map((item) => ({ uid: item.result.uid, ...item.result.properties }))
+
+					setStore({
+						planets: planets
+					})
+
+				} catch (error) {
+					console.log(error)
+
+				}
 			},
-			changeColor: (index, color) => {
-				//get the store
+			loadStarships: async () => {
+				const store = getStore()
+				try {
+					let response = await fetch(`${store.urlBase}/starships`);
+					let data = await response.json();
+
+					const fetchs = data.results.map((item) => fetch(item.url))
+					const respuestas = await Promise.all(fetchs);
+					const datas = await Promise.all(respuestas.map((item) => item.json()));
+
+					let starships = datas.map((item) => ({ uid: item.result.uid, ...item.result.properties }))
+
+					setStore({
+						starships: starships
+					})
+
+				} catch (error) {
+					console.log(error)
+
+				}
+			},
+			getFavorite: (data) => {
 				const store = getStore();
-
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
-				});
-
-				//reset the global store
-				setStore({ demo: demo });
-			}
+				if (!store.favorites.includes(data)){
+					setStore({ favorites: [...store.favorites, data]})
+				}
+			},
+			deleteFavorite: (data) => {
+				const store = getStore();
+				const favorite = store.favorites.filter(favorite => favorite !== data);
+				setStore({ favorites: favorite });
+			  }
 		}
 	};
 };
 
 export default getState;
+
+
+
+//[data.result.properties]
